@@ -5,7 +5,7 @@
 
 using namespace concurrency;  
 
-void initialize_array(std::vector<_type> &v_data, unsigned size)
+void initialize_array(std::vector<int> &v_data, unsigned size)
 {
     for(unsigned i=0; i<size; ++i)
     {
@@ -13,8 +13,8 @@ void initialize_array(std::vector<_type> &v_data, unsigned size)
     }
 }
 
-void mxm_amp_simple(int M, int N, int W, const std::vector<_type>& va, const std::vector<_type>& vb, 
-      std::vector<_type>& vresult)
+void mxm_amp_simple(int M, int N, int W, const std::vector<int>& va, const std::vector<int>& vb, 
+      std::vector<int>& vresult)
 {
     if ((va.size() != M*N) || (vb.size() != N*W) || (vresult.size() != M*W))
         throw "Expected matrix dimension result(M*W) = a(MxN) * b(N*W)";
@@ -22,15 +22,15 @@ void mxm_amp_simple(int M, int N, int W, const std::vector<_type>& va, const std
    extent<2> e_a(M, N), e_b(N, W), e_c(M, W);
 
    // Copy in
-   array_view<const _type, 2> av_a(e_a, va); 
-   array_view<const _type, 2> av_b(e_b, vb); 
-   array_view<_type, 2> av_c(e_c, vresult);
+   array_view<const int, 2> av_a(e_a, va); 
+   array_view<const int, 2> av_b(e_b, vb); 
+   array_view<int, 2> av_c(e_c, vresult);
    av_c.discard_data();
 
    // Compute - outer 2 for loops of CPU is replaced by a parallel_for_each
    parallel_for_each(av_c.extent, [=](index<2> idx) restrict(amp)
    {
-      _type result = 0;
+      int result = 0;
       for(int i = 0; i < av_a.extent[1]; ++i)
       {
          index<2> idx_a(idx[0], i);
