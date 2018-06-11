@@ -65,11 +65,11 @@ void main() {
 
    mxm_amp_simple(M, N, W, v_a, v_b, v_c_simple);
 
-   for(int x=0;x<M;x++){
-      for(int y=0;y<W;y++){
-         cout<<v_c_simple[x][y];
-      }
-      cout<<endl;
+   for(int x=0;x<M*W;x++){
+       cout<<v_c_simple[x];
+       cout<<"\n";
+    }
+      
    }
 
 }  
