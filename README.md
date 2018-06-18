@@ -9,5 +9,6 @@
 # HCC
 
 **[Instalação](https://github.com/RadeonOpenCompute/hcc)**
+**[Instalação Alternativa](https://github.com/RadeonOpenCompute/ROCm)**
 - Seguir o passo a passo do link
 
